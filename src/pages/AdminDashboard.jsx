@@ -5,6 +5,7 @@ import {
   CheckCircle, ShieldAlert, Image as ImageIcon, X, Trash 
 } from 'lucide-react'
 import { normalizeImage } from '../utils/imageHelper'
+import { API_URL } from '../utils/api'
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -68,7 +69,7 @@ export default function AdminDashboard() {
     setInquiriesLoading(true)
     const token = authToken || localStorage.getItem('sri_admin_token')
     try {
-      const res = await fetch('/api/admin/contacts', {
+      const res = await fetch(`${API_URL}/api/admin/contacts`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -93,7 +94,7 @@ export default function AdminDashboard() {
     setLoading(true)
     const token = authToken || localStorage.getItem('sri_admin_token')
     try {
-      const res = await fetch('/api/projects', {
+      const res = await fetch(`${API_URL}/api/projects`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -122,7 +123,7 @@ export default function AdminDashboard() {
     e.preventDefault()
     setLoginError('')
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: 'admin', password })
@@ -157,7 +158,7 @@ export default function AdminDashboard() {
     }
     const token = localStorage.getItem('sri_admin_token')
     try {
-      const res = await fetch(`/api/admin/contacts/${id}`, {
+      const res = await fetch(`${API_URL}/api/admin/contacts/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -293,7 +294,7 @@ export default function AdminDashboard() {
     })
 
     const isEdit = !!editingProject
-    const url = isEdit ? `/api/projects/${editingProject._id}` : '/api/projects'
+    const url = isEdit ? `${API_URL}/api/projects/${editingProject._id}` : `${API_URL}/api/projects`
     const method = isEdit ? 'PUT' : 'POST'
 
     try {
@@ -326,7 +327,7 @@ export default function AdminDashboard() {
 
     const token = localStorage.getItem('sri_admin_token')
     try {
-      const res = await fetch(`/api/projects/${id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -377,7 +378,7 @@ export default function AdminDashboard() {
       
       // Update each project's order on the backend
       const promises = updatedProjects.map((item) => {
-        return fetch(`/api/projects/${item._id}`, {
+        return fetch(`${API_URL}/api/projects/${item._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -416,7 +417,7 @@ export default function AdminDashboard() {
 
     try {
       const promises = updatedProjects.map((item) => {
-        return fetch(`/api/projects/${item._id}`, {
+        return fetch(`${API_URL}/api/projects/${item._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -1,3 +1,7 @@
+import { API_URL } from './api'
+
+const BACKEND_URL = API_URL || 'http://localhost:5000'
+
 export const normalizeImage = (image) => {
   if (!image) return '';
   if (typeof image !== 'string') return image;
@@ -9,10 +13,10 @@ export const normalizeImage = (image) => {
   
   // If it starts with /uploads/ or uploads/, prepend the backend host
   if (image.startsWith('/uploads/')) {
-    return `http://localhost:5005${image}`;
+    return `${BACKEND_URL}${image}`;
   }
   if (image.startsWith('uploads/')) {
-    return `http://localhost:5005/${image}`;
+    return `${BACKEND_URL}/${image}`;
   }
   
   // If it's a local import path (starts with /src/ or contains /assets/), leave it unchanged
@@ -21,5 +25,5 @@ export const normalizeImage = (image) => {
   }
   
   // Otherwise, it's just the filename stored in the backend (e.g. "stairs-1.jpeg")
-  return `http://localhost:5005/uploads/${image}`;
+  return `${BACKEND_URL}/uploads/${image}`;
 };

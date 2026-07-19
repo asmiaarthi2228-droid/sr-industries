@@ -12,7 +12,7 @@ const services = [
   'Other Engineering Support',
 ]
 
-const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+import { API_URL } from '../utils/api'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
